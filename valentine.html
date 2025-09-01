@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine's Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #ffdde1, #ee9ca7);
+    overflow: hidden;
+    animation: bgGlow 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgGlow {
+    0% { background: radial-gradient(circle at center, #ffdde1, #ee9ca7); }
+    50% { background: radial-gradient(circle at center, #ffe1f0, #ff9ca0); }
+    100% { background: radial-gradient(circle at center, #ffdde1, #ee9ca7); }
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .heart-svg {
+    width: 80px;
+    height: 80px;
+    fill: url(#grad);
+    animation: beat 1.2s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 100, 0.7));
+    margin-bottom: 20px;
+  }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  #message {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.8em;
+    white-space: pre-line;
+    margin-bottom: 25px;
+  }
+  #message span {
+    opacity: 0;
+    animation: glowIn 0.5s forwards, shine 1s ease-in-out 0s 1;
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(255,150,200,0.8);
+    display: inline-block;
+  }
+
+  @keyframes glowIn {
+    from { opacity: 0; transform: scale(0.8); text-shadow: none; }
+    to   { opacity: 1; transform: scale(1); text-shadow: 0 0 15px rgba(255,0,150,0.8); }
+  }
+
+  @keyframes shine {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(2); }
+    100% { filter: brightness(1); }
+  }
+
+  .floating-heart {
+    position: absolute;
+    color: rgba(255,0,100,0.6);
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0% { transform: translateY(-10vh) scale(1); opacity: 1; }
+    100% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+  }
+
+  /* —— 愛心外框 —— */
+  .heart-frame {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+  }
+  .heart-frame svg {
+    width: 120%;
+    max-width: 850px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 80, 140, .35));
+  }
+  .heart-frame path {
+    fill: none;
+    stroke: url(#frameGrad);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: var(--dash, 2000);
+    stroke-dashoffset: var(--dash, 2000);
+  }
+  .heart-frame.reveal { opacity: 1; }
+  .heart-frame.reveal path {
+    animation: draw 8s ease forwards, frameGlow 2.8s ease-in-out 8s infinite;
+  }
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes frameGlow {
+    0%,100% { filter: drop-shadow(0 0 6px rgba(255, 80, 140, .7)) drop-shadow(0 0 20px rgba(255, 160, 200, .4)); }
+    50%     { filter: drop-shadow(0 0 12px rgba(255, 80, 140, .9)) drop-shadow(0 0 28px rgba(255, 160, 200, .6)); }
+  }
+</style>
+</head>
+<body>
+
+<h1>Happy Valentine's Day</h1>
+
+<svg class="heart-svg" viewBox="0 0 32 29.6">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff416c"/>
+      <stop offset="100%" style="stop-color:#ff4b2b"/>
+    </linearGradient>
+  </defs>
+  <path d="M23.6,0c-2.9,0-5.4,1.5-7.6,4.1C13.8,1.5,11.3,0,8.4,0C3.8,0,0,3.8,0,8.4
+    c0,9.6,16,21.2,16,21.2S32,18,32,8.4C32,3.8,28.2,0,23.6,0z"/>
+</svg>
+
+<p id="message"></p>
+
+<!-- 愛心外框 -->
+<div class="heart-frame" id="heartFrame">
+  <svg viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"  stop-color="#ff416c"/>
+        <stop offset="100%" stop-color="#ff4b2b"/>
+      </linearGradient>
+    </defs>
+    <path id="framePath"
+      d="M300 80
+         C 255 10, 120 25, 110 140
+         C 100 240, 200 310, 300 400
+         C 400 310, 500 240, 490 140
+         C 480 25, 345 10, 300 80 Z"/>
+  </svg>
+</div>
+
+<script>
+const text = "親愛的寶貝佩臻\n妳最近常常在加班辛苦啦\n想告訴妳 其實什麼禮物 有沒有收到都沒關西\n因為妳一直都是我每天最美好的驚喜\n願我們的愛像這個心一樣 永遠閃耀跳動\n蔡小朋友 情人節快樂!!!";
+const messageEl = document.getElementById("message");
+const heartFrame = document.getElementById("heartFrame");
+const framePath = document.getElementById("framePath");
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    let char = text[i];
+    if (char === "\n") {
+      messageEl.innerHTML += "<br>";
+    } else {
+      const span = document.createElement("span");
+      span.textContent = char;
+      messageEl.appendChild(span);
+    }
+    i++;
+    setTimeout(typeWriter, 100);
+  } else {
+    // 
+    const len = framePath.getTotalLength();
+    framePath.style.setProperty("--dash", len);
+    framePath.style.strokeDasharray = len;
+    framePath.style.strokeDashoffset = len;
+    heartFrame.classList.add("reveal");
+  }
+}
+typeWriter();
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 25 + 15 + "px";
+  heart.style.transform = `rotate(${Math.random()*360}deg)`;
+  heart.innerText = "❤";
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
